@@ -40,8 +40,7 @@ lint-install:
 # Setup
 setup:
 	@echo "Setting up project..."
-	@mkdir -p bin
-	@cp env.example .env
+	@chmod +x scripts/setup.sh && ./scripts/setup.sh
 	@echo "✅ Project setup complete!"
 	@echo "📝 Please edit .env file with your bot token"
 
