@@ -83,4 +83,3 @@ func (h *Handler) sendMessage(chatID int64, text string) {
 		h.logger.Error("failed to send message", zap.Error(err))
 	}
 }
-

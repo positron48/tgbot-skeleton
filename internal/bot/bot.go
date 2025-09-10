@@ -108,7 +108,9 @@ func (b *Bot) startWebhook(ctx context.Context) error {
 	// Health endpoint
 	http.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("OK"))
+		if _, err := w.Write([]byte("OK")); err != nil {
+			b.logger.Error("failed to write health response", zap.Error(err))
+		}
 	})
 
 	b.logger.Info("starting HTTP server for webhook", zap.String("address", b.config.Server.Address))
@@ -139,7 +141,9 @@ func (b *Bot) startLongPolling(ctx context.Context) error {
 	go func() {
 		http.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
 			w.WriteHeader(http.StatusOK)
-			w.Write([]byte("OK"))
+			if _, err := w.Write([]byte("OK")); err != nil {
+				b.logger.Error("failed to write health response", zap.Error(err))
+			}
 		})
 		if err := http.ListenAndServe(b.config.Server.Address, nil); err != nil {
 			b.logger.Error("HTTP server error", zap.Error(err))

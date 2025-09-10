@@ -36,9 +36,8 @@ func TestHandler_HandleUpdate(t *testing.T) {
 	_ = handler
 	_ = update
 
-	// Basic test to ensure the handler can be created
-	if handler == nil {
-		t.Error("Handler should not be nil")
+	// Test that handler is properly initialized
+	if handler.logger == nil {
+		t.Error("Handler logger should not be nil")
 	}
 }
-

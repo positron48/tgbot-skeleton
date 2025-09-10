@@ -8,7 +8,7 @@ import (
 // New creates a new logger instance
 func New(level string) (*zap.Logger, error) {
 	config := zap.NewProductionConfig()
-	
+
 	// Set log level
 	switch level {
 	case "debug":
@@ -31,4 +31,3 @@ func New(level string) (*zap.Logger, error) {
 
 	return config.Build()
 }
-

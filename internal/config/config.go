@@ -18,14 +18,14 @@ type Config struct {
 
 // TelegramConfig holds Telegram bot configuration
 type TelegramConfig struct {
-	Token           string `mapstructure:"token"`
-	APIBaseURL      string `mapstructure:"api_base_url"`
-	Debug           bool   `mapstructure:"debug"`
-	UpdatesTimeout  int    `mapstructure:"updates_timeout"`
-	WebhookEnable   bool   `mapstructure:"webhook_enable"`
-	WebhookURL      string `mapstructure:"webhook_url"`
-	WebhookDomain   string `mapstructure:"webhook_domain"`
-	WebhookPath     string `mapstructure:"webhook_path"`
+	Token          string `mapstructure:"token"`
+	APIBaseURL     string `mapstructure:"api_base_url"`
+	Debug          bool   `mapstructure:"debug"`
+	UpdatesTimeout int    `mapstructure:"updates_timeout"`
+	WebhookEnable  bool   `mapstructure:"webhook_enable"`
+	WebhookURL     string `mapstructure:"webhook_url"`
+	WebhookDomain  string `mapstructure:"webhook_domain"`
+	WebhookPath    string `mapstructure:"webhook_path"`
 }
 
 // ServerConfig holds server configuration
@@ -42,7 +42,8 @@ type LoggingConfig struct {
 func Load() (*Config, error) {
 	// Load .env file if it exists
 	if err := godotenv.Load(); err != nil {
-		// .env file is optional
+		// .env file is optional, ignore error
+		_ = err
 	}
 
 	// Set default values
@@ -56,18 +57,18 @@ func Load() (*Config, error) {
 	// Bind environment variables
 	viper.AutomaticEnv()
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-	
+
 	// Explicitly bind environment variables to viper keys
-	viper.BindEnv("telegram.token", "TELEGRAM_TOKEN")
-	viper.BindEnv("telegram.api_base_url", "TELEGRAM_API_BASE_URL")
-	viper.BindEnv("telegram.debug", "TELEGRAM_DEBUG")
-	viper.BindEnv("telegram.updates_timeout", "TELEGRAM_UPDATES_TIMEOUT")
-	viper.BindEnv("telegram.webhook_enable", "TELEGRAM_WEBHOOK_ENABLE")
-	viper.BindEnv("telegram.webhook_url", "TELEGRAM_WEBHOOK_URL")
-	viper.BindEnv("telegram.webhook_domain", "TELEGRAM_WEBHOOK_DOMAIN")
-	viper.BindEnv("telegram.webhook_path", "TELEGRAM_WEBHOOK_PATH")
-	viper.BindEnv("server.address", "SERVER_ADDRESS")
-	viper.BindEnv("logging.level", "LOG_LEVEL")
+	_ = viper.BindEnv("telegram.token", "TELEGRAM_TOKEN")
+	_ = viper.BindEnv("telegram.api_base_url", "TELEGRAM_API_BASE_URL")
+	_ = viper.BindEnv("telegram.debug", "TELEGRAM_DEBUG")
+	_ = viper.BindEnv("telegram.updates_timeout", "TELEGRAM_UPDATES_TIMEOUT")
+	_ = viper.BindEnv("telegram.webhook_enable", "TELEGRAM_WEBHOOK_ENABLE")
+	_ = viper.BindEnv("telegram.webhook_url", "TELEGRAM_WEBHOOK_URL")
+	_ = viper.BindEnv("telegram.webhook_domain", "TELEGRAM_WEBHOOK_DOMAIN")
+	_ = viper.BindEnv("telegram.webhook_path", "TELEGRAM_WEBHOOK_PATH")
+	_ = viper.BindEnv("server.address", "SERVER_ADDRESS")
+	_ = viper.BindEnv("logging.level", "LOG_LEVEL")
 
 	// Set config file
 	viper.SetConfigName("config")
@@ -103,4 +104,3 @@ func GetEnv(key, defaultValue string) string {
 	}
 	return defaultValue
 }
-
