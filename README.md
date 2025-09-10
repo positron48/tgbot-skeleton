@@ -6,7 +6,7 @@ Minimal skeleton for creating a Telegram bot in Go with full infrastructure for 
 
 - Simple architecture with minimal dependencies
 - Support for webhook and long polling modes
-- Configuration via environment variables and YAML
+- Configuration via environment variables
 - Structured logging with zap
 - Docker and docker-compose for containerization
 - CI/CD with GitHub Actions
@@ -39,7 +39,7 @@ make setup
 
 ```bash
 # Required settings
-TELEGRAM_BOT_TOKEN=your_bot_token_here
+TELEGRAM_TOKEN=your_bot_token_here
 
 # Optional settings
 TELEGRAM_DEBUG=false
@@ -86,7 +86,6 @@ tgbot-skeleton/
 │   ├── bot/                 # Bot logic
 │   ├── config/              # Configuration
 │   └── logger/              # Logging
-├── configs/                 # Configuration files
 ├── .github/workflows/       # GitHub Actions
 ├── Dockerfile               # Docker image
 ├── docker-compose.yml       # Docker Compose
@@ -125,7 +124,7 @@ make deploy         # Deploy with Docker
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `TELEGRAM_BOT_TOKEN` | Telegram bot token | **Required** |
+| `TELEGRAM_TOKEN` | Telegram bot token | **Required** |
 | `TELEGRAM_DEBUG` | Debug mode | `false` |
 | `TELEGRAM_UPDATES_TIMEOUT` | Updates timeout | `30` |
 | `TELEGRAM_WEBHOOK_ENABLE` | Enable webhook | `false` |
@@ -157,7 +156,7 @@ docker build -t tgbot-skeleton .
 docker run -d \
   --name tgbot-skeleton \
   -p 8080:8080 \
-  -e TELEGRAM_BOT_TOKEN=your_token_here \
+  -e TELEGRAM_TOKEN=your_token_here \
   tgbot-skeleton
 ```
 

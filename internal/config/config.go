@@ -56,6 +56,18 @@ func Load() (*Config, error) {
 	// Bind environment variables
 	viper.AutomaticEnv()
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+	
+	// Explicitly bind environment variables to viper keys
+	viper.BindEnv("telegram.token", "TELEGRAM_TOKEN")
+	viper.BindEnv("telegram.api_base_url", "TELEGRAM_API_BASE_URL")
+	viper.BindEnv("telegram.debug", "TELEGRAM_DEBUG")
+	viper.BindEnv("telegram.updates_timeout", "TELEGRAM_UPDATES_TIMEOUT")
+	viper.BindEnv("telegram.webhook_enable", "TELEGRAM_WEBHOOK_ENABLE")
+	viper.BindEnv("telegram.webhook_url", "TELEGRAM_WEBHOOK_URL")
+	viper.BindEnv("telegram.webhook_domain", "TELEGRAM_WEBHOOK_DOMAIN")
+	viper.BindEnv("telegram.webhook_path", "TELEGRAM_WEBHOOK_PATH")
+	viper.BindEnv("server.address", "SERVER_ADDRESS")
+	viper.BindEnv("logging.level", "LOG_LEVEL")
 
 	// Set config file
 	viper.SetConfigName("config")
